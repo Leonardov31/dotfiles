@@ -83,6 +83,42 @@ Not from Mason, whose pip venv build for it is slow and unreliable. `sql.lua`
 filters it out of Mason's `ensure_installed` so the two don't fight, and
 conform/nvim-lint pick up the Homebrew binary from PATH.
 
+### GitLab merge request review
+
+`nvim/lua/plugins/gitlab.lua` adds `harrisoncramer/gitlab.nvim`: review an MR
+without leaving the editor — diff, inline comments, threads, suggestions,
+approve, merge.
+
+Worth knowing this is *not* GitLab's official `gitlab.vim`. That plugin is built
+around Duo Code Suggestions and cannot review an MR: no list, no diff, no
+discussions, no approve — its only MR feature is `:edit <mr-url>` to edit the
+description. The two are complementary, not alternatives.
+
+It compiles a Go server on install and on every update, which is why the
+Brewfile carries `go`.
+
+Authentication is via a Personal Access Token with the `api` scope, exported
+from your shell (`~/.zshrc`, deliberately outside this repo):
+
+```bash
+export GITLAB_TOKEN="glpat-..."
+export GITLAB_URL="https://gitlab.example.com"   # self-hosted only
+```
+
+The plugin also reads a `.gitlab.nvim` file from the project root, and that file
+**takes precedence** over the environment. Prefer the env var — a token file
+inside a work repo is one `git add -A` away from being committed. If you do use
+the file, ignore it globally:
+
+```bash
+git config --global core.excludesfile ~/.config/git/ignore
+echo '.gitlab.nvim' >> ~/.config/git/ignore
+```
+
+Keymaps use the `gl` prefix (unused otherwise): `glc` choose an MR, `glS` review
+the current branch, `glA` approve, `glM` merge. Inside the diff, `c` + motion
+comments on those lines and `s` + motion writes a suggestion.
+
 ### Database UI
 
 `<leader>D` toggles vim-dadbod's UI. Connections are deliberately not stored in

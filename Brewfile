@@ -22,6 +22,9 @@ brew "lazygit"
 # SQL linter/formatter. Installed here rather than through Mason, whose pip
 # venv build for this package is slow and was failing — see nvim/lua/plugins/sql.lua
 brew "sqlfluff"
+# gitlab.nvim compiles a companion server from source on install and on every
+# update, so Go is a hard dependency of the MR review workflow (needs >= 1.25.1).
+brew "go"
 
 # ── Version manager ───────────────────────────────────────────────────────────
 # Mason shells out to node/npm to install vtsls, eslint, prettier and the
