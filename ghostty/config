@@ -1,0 +1,51 @@
+# Ghostty configuration
+# Docs: https://ghostty.org/docs/config  |  Reload in place: cmd+shift+,
+# Full list of defaults: `ghostty +show-config --default --docs`
+
+# ── Font ─────────────────────────────────────────────────────────────────────
+# Deliberately unset -- Ghostty's defaults are already right here.
+#
+# Its built-in default is JetBrains Mono, and it *bundles* "Symbols Nerd Font"
+# as a fallback, so LazyVim's file/git/diagnostic icons render with no font
+# installed and no font-family set. Powerline glyphs (U+E0B0 and friends) are
+# drawn by Ghostty's own internal sprites. Verify any of this with:
+#
+#     ghostty +show-face --cp=0xF07B    # -> Symbols Nerd Font
+#     ghostty +show-face --cp=0xE0B0    # -> internal sprites
+#
+# So installing a patched Nerd Font and setting it as font-family is redundant
+# on Ghostty (it is genuinely required on Terminal.app / bare iTerm2). Defaults
+# in play: font-size = 13, font-thicken = false.
+
+# ── Theme ────────────────────────────────────────────────────────────────────
+# Matches LazyVim's default colorscheme (tokyonight, "moon" style) so the
+# terminal background and nvim background are the same color -- no seam around
+# splits or when nvim exits. Follows the macOS appearance setting.
+theme = dark:TokyoNight Moon,light:TokyoNight Day
+
+# ── Cursor ───────────────────────────────────────────────────────────────────
+cursor-style = block
+cursor-style-blink = false
+mouse-hide-while-typing = true
+
+# ── Keyboard ─────────────────────────────────────────────────────────────────
+# `left` (not `true`) is deliberate: the LEFT option key sends Alt/Meta so
+# nvim receives <M-...> chords, while the RIGHT option key keeps macOS's
+# compose behaviour for typing Portuguese (option+c = ç, option+n+a = ã).
+macos-option-as-alt = left
+
+# ── Window ───────────────────────────────────────────────────────────────────
+window-padding-x = 8
+window-padding-y = 4
+window-padding-balance = true
+macos-titlebar-style = tabs
+window-save-state = always
+
+# ── Scrollback & selection ───────────────────────────────────────────────────
+scrollback-limit = 10000000
+copy-on-select = clipboard
+
+# ── Shell integration ────────────────────────────────────────────────────────
+# Powers cursor shape reporting, `sudo` prompt awareness and window titles.
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title

@@ -1,0 +1,7 @@
+.DS_Store
+
+# backups install.sh creates when it finds pre-existing config
+.config-backup-*
+
+# per-project database connections (credentials) — see README
+.lazy.lua
